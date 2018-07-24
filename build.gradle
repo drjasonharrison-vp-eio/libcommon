@@ -3,7 +3,6 @@
 buildscript {
     repositories {
 		google()
-//		maven { url 'https://maven.google.com' }
         jcenter()
     }
     dependencies {
@@ -17,8 +16,12 @@ buildscript {
 allprojects {
     repositories {
     	google()
-//		maven { url 'https://maven.google.com' }
         jcenter()
+    }
+    gradle.projectsEvaluated {
+        tasks.withType(JavaCompile) {
+            options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+        }
     }
 }
 
