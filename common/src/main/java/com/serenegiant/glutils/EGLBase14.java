@@ -42,7 +42,7 @@ import com.serenegiant.utils.BuildCheck;
  */
 @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
 /*package*/ class EGLBase14 extends EGLBase {	// API >= 17
-//	private static final boolean DEBUG = false;	// TODO set false on release
+	private static final boolean DEBUG = true;	// TODO set false on release
 	private static final String TAG = "EGLBase14";
 
 	private static final Context EGL_NO_CONTEXT = new Context(EGL14.EGL_NO_CONTEXT);
@@ -202,7 +202,7 @@ import com.serenegiant.utils.BuildCheck;
 	 */
 	@Override
 	public EglSurface createFromSurface(final Object nativeWindow) {
-//		if (DEBUG) Log.v(TAG, "createFromSurface:");
+		if (DEBUG) Log.v(TAG, "createFromSurface:");
 		final EglSurface eglSurface = new EglSurface(this, nativeWindow);
 		eglSurface.makeCurrent();
 		return eglSurface;
@@ -471,7 +471,9 @@ import com.serenegiant.utils.BuildCheck;
 	 * @return
 	 */
     private final EGLSurface createWindowSurface(final Object nativeWindow) {
-//		if (DEBUG) Log.v(TAG, "createWindowSurface:nativeWindow=" + nativeWindow);
+		if (DEBUG) {
+			Log.v(TAG, "createWindowSurface:nativeWindow=" + nativeWindow);
+
 
         final int[] surfaceAttribs = {
 			EGL14.EGL_NONE
@@ -484,6 +486,8 @@ import com.serenegiant.utils.BuildCheck;
 				final int error = EGL14.eglGetError();
 				if (error == EGL14.EGL_BAD_NATIVE_WINDOW) {
 					Log.e(TAG, "createWindowSurface returned EGL_BAD_NATIVE_WINDOW.");
+				} else if (error == EGL14.ELG_BAD_ALLOC) {
+					Log.e(TAG, "createWindowSurface returned ELG_BAD_ALLOC.");
 				}
 				throw new RuntimeException("createWindowSurface failed error=" + error);
 			}
