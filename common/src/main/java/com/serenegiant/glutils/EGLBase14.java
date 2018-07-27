@@ -473,7 +473,7 @@ import com.serenegiant.utils.BuildCheck;
     private final EGLSurface createWindowSurface(final Object nativeWindow) {
 		if (DEBUG) {
 			Log.v(TAG, "createWindowSurface:nativeWindow=" + nativeWindow);
-
+		}
 
         final int[] surfaceAttribs = {
 			EGL14.EGL_NONE
@@ -486,7 +486,7 @@ import com.serenegiant.utils.BuildCheck;
 				final int error = EGL14.eglGetError();
 				if (error == EGL14.EGL_BAD_NATIVE_WINDOW) {
 					Log.e(TAG, "createWindowSurface returned EGL_BAD_NATIVE_WINDOW.");
-				} else if (error == EGL14.ELG_BAD_ALLOC) {
+				} else if (error == EGL14.EGL_BAD_ALLOC) {
 					Log.e(TAG, "createWindowSurface returned ELG_BAD_ALLOC.");
 				}
 				throw new RuntimeException("createWindowSurface failed error=" + error);
